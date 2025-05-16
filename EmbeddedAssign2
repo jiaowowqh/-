@@ -1,0 +1,48 @@
+#include <Arduino.h>
+int led1 = 13;
+int led2 = 12;
+bool led1State = false;
+bool led2State = false;
+
+void setup()
+{
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  if (Serial.available() > 0)//如果串口有数据
+  {
+    String received = Serial.readStringUntil('\n');
+    received.trim();
+
+    if (received=="1")
+    {
+      if(led1State==false)
+      {
+        digitalWrite(led1, HIGH);
+        led1State=true;
+      }
+      else
+      {
+        digitalWrite(led1, LOW);
+        led1State=false;
+      }
+    }
+    else if (received=="2")
+    {
+      if(led2State==false)
+      {
+        digitalWrite(led2, HIGH);
+        led2State=true;
+      }
+      else
+      {
+        digitalWrite(led2, LOW);
+        led2State=false;
+      }
+    }
+    }
+  }
